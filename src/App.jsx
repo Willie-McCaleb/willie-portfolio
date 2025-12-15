@@ -13,7 +13,6 @@ function App() {
 
       <div className="hero-main-wrapper">
         <Hero />
-        <RiveCharacter />
 
         {/* Main orange area */}
         <main className="main-section">
