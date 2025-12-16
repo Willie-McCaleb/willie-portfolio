@@ -63,9 +63,11 @@ body,
 
 /*** Hero ***/
 .hero {
-  min-height: 62vh;
+  min-height: 30rem; /* Wow this was the problem with the Rive character sizing */
   text-align: center;
   margin-top: 4rem;
+  margin-bottom: 0 !important;
+  position: relative;
 }
 .hero h1 {
   font-size: 4.34rem;
@@ -88,6 +90,10 @@ body,
   margin: 0 -7%;
   padding: 4rem 7% 0;
   background-color: var(--light-orange);
+}
+
+.about.project-card{
+      padding: 2rem;
 }
 
 .projects__title {
@@ -119,11 +125,13 @@ body,
 }
 
 .project-card {
-  background: var(--light-orange);
+  background: var(--light-orange) !important;
   border-radius: 20px;
   box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.12),
     0px 1px 10px 10px rgba(0, 0, 0, 0.06);
   padding: 16px;
+  z-index: 1;
+  position: relative;
 }
 
 .projects a{
@@ -155,7 +163,7 @@ background: none;
 footer {
   margin: 0 -7%;
   background-color: var(--light-orange);
-  padding: 3rem 6%;
+  padding: 23rem 6% 3rem;
   margin-top: -1px;
   text-align: center;
   display: flex;

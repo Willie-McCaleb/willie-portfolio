@@ -3,7 +3,7 @@ import React from "react";
 
 function About() {
   return (
-    <section className="about">
+    <section className="about project-card">
       <h2 className="about__left">
         A space where design, code, and creativity meet.
       </h2>
