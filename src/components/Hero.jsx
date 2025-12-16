@@ -6,12 +6,6 @@ import RiveCharacter from "./RiveCharacter.jsx";
 function Hero() {
   return (
     <section className="hero">
-      <h1 className="hero__title">WILLIE JR.</h1>
-
-      <div className="hero__subline">
-        <span>Step Into My</span>
-        <span>Creative Lab</span>
-      </div>
 
       <RiveCharacter />
 

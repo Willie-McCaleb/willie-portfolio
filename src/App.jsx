@@ -1,12 +1,20 @@
+import React, { useState } from "react";
 import "./App.css";
 import Header from "./components/Header.jsx";
 import Hero from "./components/Hero.jsx";
-import RiveCharacter from "./components/RiveCharacter.jsx";
-import About from "./components/About.jsx";
-import Projects from "./components/Projects.jsx";
-import Footer from "./components/Footer.jsx";
+import { DialogueBox } from "./components/DialogueBox.jsx";
+import "./CSS/dialogue.css";
+
+const INTRO_DIALOGUE = [
+  "Welcome, Trainer.",
+  "This is my creative space.",
+  "What would you like to explore?",
+];
 
 function App() {
+  const [showChoices, setShowChoices] = useState(false);
+  const [activeModal, setActiveModal] = useState(null);
+
   return (
     <div className="page">
       <Header />
@@ -14,14 +22,39 @@ function App() {
       <div className="hero-main-wrapper">
         <Hero />
 
-        {/* Main orange area */}
-        <main className="main-section">
-          <About />
-          <Projects />
-        </main>
+        <div className="game-container">
+          {!showChoices && (
+            <DialogueBox
+              dialogue={INTRO_DIALOGUE}
+              onComplete={() => setShowChoices(true)}
+            />
+          )}
 
-        <Footer />
+          {showChoices && (
+            <div className="choices">
+              {["About Me", "Projects", "Contact"].map((choice) => (
+                <button
+                  key={choice}
+                  className="choice-btn"
+                  onClick={() => setActiveModal(choice)}
+                >
+                  {choice}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
+
+      {activeModal && (
+        <div className="modal-overlay" onClick={() => setActiveModal(null)}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <h2>{activeModal}</h2>
+            <p>Content for {activeModal} goes here.</p>
+            <button onClick={() => setActiveModal(null)}>Close</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -14,7 +14,6 @@ body,
 
 .page {
   min-height: 100vh;
-  padding: 0 6%;
 }
 
 .page section:not(section:last-child) {
@@ -65,7 +64,7 @@ body,
 .hero {
   min-height: 30rem; /* Wow this was the problem with the Rive character sizing */
   text-align: center;
-  margin-top: 4rem;
+  margin-top: 2rem;
   margin-bottom: 0 !important;
   position: relative;
 }

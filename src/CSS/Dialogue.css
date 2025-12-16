@@ -1,0 +1,33 @@
+.dialogue-box {
+  position: relative;
+  /* background: white;
+  border: 3px solid #333; */
+  border-radius: 8px;
+  padding: 16px;
+  min-height: 100px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.dialogue-text {
+  margin: 0;
+  flex: 1;
+  line-height: 1.5;
+}
+
+.dialogue-caret {
+  align-self: flex-end;
+  font-size: 16px;
+  animation: blink 0.8s infinite;
+}
+
+.dialogue-caret.invisible {
+  visibility: hidden; /* Takes up space but not visible */
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
