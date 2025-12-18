@@ -97,11 +97,6 @@
 }
 
 .contact-checkbox-wrapper.checked .contact-checkbox-face {
-  background-color: var(--black);
-  transform: translateY(-2px);
-}
-
-.contact-checkbox-wrapper.checked:hover .contact-checkbox-face {
   transform: translateY(0px);
 }
 

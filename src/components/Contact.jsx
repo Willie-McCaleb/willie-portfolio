@@ -174,7 +174,7 @@ function Contact({ onComplete }) {
                           style={{
                             width: "12px",
                             height: "12px",
-                            color: "white",
+                            color: "var(--black);",
                           }}
                           fill="none"
                           viewBox="0 0 24 24"
