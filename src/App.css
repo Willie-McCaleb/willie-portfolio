@@ -67,7 +67,16 @@ body,
   height: 12px;
   border-radius: 50%;
   background-color: #30cd41; /* green */
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation: shrinkToNormal 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes shrinkToNormal {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(.9);
+  }
 }
 
 .nav__icons {
@@ -227,12 +236,3 @@ footer {
   font-weight: 500;
 }
 
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 0.3;
-  }
-  50% {
-    opacity: 0.6;
-  }
-}

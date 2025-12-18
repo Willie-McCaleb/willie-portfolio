@@ -4,11 +4,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../CSS/dialogue.css";
 
-export function DialogueBox({ dialogue, onComplete, choices, onChoiceSelect }) {
+export function DialogueBox({ dialogue, onComplete, choices, onChoiceSelect, customContent }) {
   const [lineIndex, setLineIndex] = useState(0);
   const [text, setText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [showChoices, setShowChoices] = useState(false);
+  const [showCustomContent, setShowCustomContent] = useState(false);
 
   const intervalRef = useRef(null);
 
@@ -18,6 +19,7 @@ export function DialogueBox({ dialogue, onComplete, choices, onChoiceSelect }) {
     setText("");
     setIsTyping(false);
     setShowChoices(false);
+    setShowCustomContent(false);
   }, [dialogue]);
 
   // Start typing current line
@@ -27,53 +29,68 @@ export function DialogueBox({ dialogue, onComplete, choices, onChoiceSelect }) {
   }, [lineIndex, dialogue]);
 
   const startTyping = (line) => {
-    clearInterval(intervalRef.current);
-    setText("");
-    setIsTyping(true);
+  clearInterval(intervalRef.current);
+  setText("");
+  setIsTyping(true);
 
-    let i = 0;
+  let i = 0;
 
-    intervalRef.current = setInterval(() => {
-      if (i < line.length) {
-        setText(line.substring(0, i + 1));
-        i++;
-      } else {
-        clearInterval(intervalRef.current);
-        setIsTyping(false);
-
-        // If this is the last line and we have choices, show them
-        if (
-          lineIndex === dialogue.length - 1 &&
-          choices &&
-          choices.length > 0
-        ) {
-          setShowChoices(true);
-          onComplete();
-        }
-      }
-    }, 30);
-  };
-
-  const advance = () => {
-    // If currently typing, skip to end of current line
-    if (isTyping) {
+  intervalRef.current = setInterval(() => {
+    if (i < line.length) {
+      setText(line.substring(0, i + 1));
+      i++;
+    } else {
       clearInterval(intervalRef.current);
-      setText(dialogue[lineIndex]);
       setIsTyping(false);
 
-      // If this was the last line with choices, show them
-      if (lineIndex === dialogue.length - 1 && choices && choices.length > 0) {
+      // If this is the last line
+      if (lineIndex === dialogue.length - 1) {
+        // Show choices if available
+        if (choices && choices.length > 0) {
+          setShowChoices(true);
+          onComplete(); // Only call onComplete when showing choices
+        }
+        // Show custom content if available
+        else if (customContent) {
+          setShowCustomContent(true);
+          onComplete(); // Only call onComplete when showing customContent
+        }
+        // If no choices or customContent, DON'T call onComplete yet
+        // Let the user click to advance (handled in the advance function)
+      }
+    }
+  }, 30);
+};
+
+  const advance = () => {
+  // If currently typing, skip to end of current line
+  if (isTyping) {
+    clearInterval(intervalRef.current);
+    setText(dialogue[lineIndex]);
+    setIsTyping(false);
+
+    // If this was the last line
+    if (lineIndex === dialogue.length - 1) {
+      // Show choices if available
+      if (choices && choices.length > 0) {
         setShowChoices(true);
         onComplete();
       }
-      return;
+      // Show custom content if available
+      else if (customContent) {
+        setShowCustomContent(true);
+        onComplete();
+      }
+      // If no choices or customContent, DON'T call onComplete yet
     }
+    return;
+  }
 
     // If not on last line, advance to next line
     if (lineIndex < dialogue.length - 1) {
       setLineIndex((i) => i + 1);
-    } else if (!choices || choices.length === 0) {
-      // If on last line with no choices, complete
+    } else if ((!choices || choices.length === 0) && !customContent) {
+      // If on last line with no choices and no custom content, complete
       onComplete();
     }
   };
@@ -89,11 +106,11 @@ export function DialogueBox({ dialogue, onComplete, choices, onChoiceSelect }) {
 
   const hasChoices = choices && choices.length > 0;
   const isLastLine = lineIndex === dialogue.length - 1;
-  const shouldShowCaret = !isTyping && (!isLastLine || !hasChoices);
+  const shouldShowCaret = !isTyping && (!isLastLine || (!hasChoices && !customContent));
 
   return (
     <div className="dialogue-container">
-      <div className="dialogue-box" onClick={showChoices ? undefined : advance}>
+      <div className="dialogue-box" onClick={(showChoices || showCustomContent) ? undefined : advance}>
         <p className="dialogue-text">{text}</p>
         {shouldShowCaret && <span className="dialogue-caret">▶</span>}
       </div>
@@ -123,6 +140,8 @@ export function DialogueBox({ dialogue, onComplete, choices, onChoiceSelect }) {
           })}
         </div>
       )}
+
+      {showCustomContent && customContent}
     </div>
   );
 }
