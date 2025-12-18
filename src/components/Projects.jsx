@@ -1,31 +1,65 @@
-// src/components/Projects.jsx
-const projects = [
-  { id: 1, thumb: " ", title: "Test Project", tag: "Game" },
-  { id: 2, thumb: " ", title: "Test Project", tag: "WEBSITE" },
-  { id: 3, thumb: " ", title: "Test Project", tag: "WEBSITE" },
-  { id: 4, thumb: " ", title: "Test Project", tag: "WEBSITE" },
-];
+import { DialogueBox } from "./DialogueBox.jsx";
+import "../CSS/Projects.css";
 
-function Projects() {
-  return (
-    <section className="projects">
-      <h2 className="projects__title">PROJECTS</h2>
+function Projects({ onComplete }) {
+  const PROJECTS_DIALOGUE = ["Here are some of my recent projects."];
 
-      <div className="projects__grid">
-        {projects.map((project) => (
-          
-            <a key={project.id} href= {project.link} className="project-card">
-              <div className="project-card__thumb">{project.thumb}</div>
+  const projects = [
+    {
+      title: "CLAYNOSAURZ BOOSTER PACKS",
+      subtitle: "App",
+      action: "Visit",
+      url: "https://your-link.com",
+    },
+    {
+      title: "MYLIIO",
+      subtitle: "Website",
+      action: "Visit",
+      url: "https://your-link.com",
+    },
+    {
+      title: "THE MAISON OF ALL VICTORIES",
+      subtitle: "Website",
+      action: "Visit",
+      url: "https://your-link.com",
+    },
+    {
+      title: "VIRGIN GALACTIC",
+      subtitle: "Website",
+      action: "Upcoming",
+      url: "https://your-link.com",
+    },
+  ];
 
-              <div className="project-card__info">
-                <h3 className="project-card__title">{project.title}</h3>
-                <p className="project-card__tag">{project.tag}</p>
-              </div>
-            </a>
-          
-        ))}
+  const projectChoices = projects.map((project) => ({
+    text: (
+      <div className="project-item">
+        <div className="project-info">
+          <div className="project-title">{project.title}</div>
+          <div className="project-line"></div>
+          <span className="project-action-text">{project.action}</span>
+        </div>
+        <div className="project-subtitle">{project.subtitle}</div>
       </div>
-    </section>
+    ),
+    action: () => window.open(project.url, "_blank"),
+  }));
+
+  // Add a "Back" option at the end
+  projectChoices.push({
+    text: "Back to Menu",
+    action: onComplete,
+    useButtonStyle: true, // Add this flag to indicate button styling
+  });
+
+  return (
+    <div className="projects-section">
+      <DialogueBox
+        dialogue={PROJECTS_DIALOGUE}
+        onComplete={() => {}} // Empty function - don't unmount yet!
+        choices={projectChoices}
+      />
+    </div>
   );
 }
 

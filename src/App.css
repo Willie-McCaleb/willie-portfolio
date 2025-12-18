@@ -14,30 +14,38 @@ body,
 
 .page {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 0;
 }
 
-.page section:not(section:last-child) {
+/* .page section:not(section:last-child) {
   margin-bottom: 3rem;
-}
+} */
 
 /*** Header ***/
 .top-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 .top-bar span {
+  white-space: nowrap;
+}
+
+.logo {
+  width: 100%;
+  text-transform: uppercase;
+  font-size: 1.2rem;
   font-weight: 600;
-  letter-spacing: -0.3px;
 }
 
 .top-bar__right {
   display: flex;
   gap: 1.5rem;
   align-items: center;
-  width: 100%;
   justify-content: space-between;
 }
 
@@ -51,21 +59,45 @@ body,
   align-items: center;
   justify-content: center;
   gap: 0.3rem;
+  font-weight: 500;
 }
 
 .status-dot {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   background-color: #30cd41; /* green */
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.nav__icons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.nav__icons svg {
+  color: var(--black);
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.nav__icons svg:hover {
+  color: var(--light-orange);
+  text-shadow: 
+    2px 2px 4px rgba(249, 211, 180, 0.8),  /* orange-ish shadow below */
+    -2px -2px 4px rgba(255, 250, 245, 0.9); /* beige highlight above */
+  transform: translateY(1.5px) scale(0.98);
+}
+
+.nav__icons button {
+  background: none;
+  border: none;
+  box-shadow: none;
 }
 
 /*** Hero ***/
 .hero {
-  min-height: 30rem; /* Wow this was the problem with the Rive character sizing */
-  text-align: center;
-  margin-top: 2rem;
-  margin-bottom: 0 !important;
+  /* margin: 0 0 2rem; */
   position: relative;
 }
 .hero h1 {
@@ -84,6 +116,18 @@ body,
   letter-spacing: -0.5px;
 }
 
+.hero-main-wrapper {
+  position: relative;
+  /* flex: 1; */
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  /* justify-content: center; */
+  /* padding: 20px; */
+  overflow-y: auto;
+  gap: 1rem;
+}
+
 /*** Main Section ***/
 .main-section {
   margin: 0 -7%;
@@ -91,8 +135,8 @@ body,
   background-color: var(--light-orange);
 }
 
-.about.project-card{
-      padding: 2rem;
+.about.project-card {
+  padding: 2rem;
 }
 
 .projects__title {
@@ -119,8 +163,8 @@ body,
   border: solid var(--black) 1.5px;
   padding: 0.3rem;
   border-radius: 5px;
-      margin: 0;
-      text-transform: uppercase;
+  margin: 0;
+  text-transform: uppercase;
 }
 
 .project-card {
@@ -133,9 +177,9 @@ body,
   position: relative;
 }
 
-.projects a{
-text-transform: inherit;
-background: none;
+.projects a {
+  text-transform: inherit;
+  background: none;
 }
 
 /* Grid Setup */
@@ -160,14 +204,13 @@ background: none;
 
 /*** Footer ***/
 footer {
-  margin: 0 -7%;
-  background-color: var(--light-orange);
-  padding: 23rem 6% 3rem;
-  margin-top: -1px;
   text-align: center;
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 4rem;
 }
 
 .footer__icons {
@@ -176,6 +219,20 @@ footer {
   gap: 0.5rem;
 }
 
+.date_time span {
+  color: var(--light-orange);
+}
+
 .footer__copy {
-  font-weight: 600;
+  font-weight: 500;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
 }

@@ -1,28 +1,20 @@
-// src/components/About.jsx
-import React from "react";
+import { DialogueBox } from "./DialogueBox.jsx";
 
-function About() {
+function About({ onComplete }) {
+  const ABOUT_DIALOGUE = [
+    "I'm a web developer who loves making things move.",
+    "I build interactive experiences that are fun to use and easy to navigate.",
+    "I like working with curious minds and teams who care about the details.",
+    "When I’m not coding, I experiment with motion and ways to bring ideas to life.",
+    "I'm a simple person who enjoys the little things in life."
+  ];
+
   return (
-    <section className="about project-card">
-      <h2 className="about__left">
-        A space where design, code, and creativity meet.
-      </h2>
-
-      <div className="about__right">
-        <p>
-          Hello, I’m a Creative Developer who blends clean interfaces,
-          expressive visuals, and intuitive interactions to build digital
-          experiences that feel intentional and human.
-        </p>
-        <p>
-          From custom WordPress builds to fully designed front-end experiences,
-          I focus on turning ideas into thoughtful, usable, and
-          visually-driven solutions. Every project is a chance to explore,
-          experiment, and create something that not only works—but feels good
-          to use.
-        </p>
-      </div>
-    </section>
+    <DialogueBox
+      dialogue={ABOUT_DIALOGUE}
+      onComplete={onComplete}
+      // No choices prop = caret appears on last line
+    />
   );
 }
 

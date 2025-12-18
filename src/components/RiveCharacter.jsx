@@ -1,7 +1,7 @@
 // src/components/RiveCharacter.jsx
 import React from "react";
 import Rive from "@rive-app/react-canvas";
-import characterFile from "../assets/portfolio_character-test.riv?url";
+import characterFile from "../assets/portfolio_character.riv?url";
 import "./../CSS/Rive.css";
 
 

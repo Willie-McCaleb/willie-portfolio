@@ -1,0 +1,73 @@
+.projects-section .choice {
+  box-shadow: none;
+  background-color: transparent;
+  color: var(--black);
+  padding: 0 16px;
+  font-family: "Work Sans", sans-serif;
+  gap: 0.5rem;
+}
+
+.projects-section .choice-btn {
+  margin-top: 16px;
+}
+
+/* .project-item {
+  display: flex;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  width: 100%;
+} */
+
+.project-info {
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+  /* gap: 0.25rem; */
+  text-align: left;
+}
+
+.project-title,
+.project-subtitle {
+  text-transform: uppercase;
+  font-size: 0.9375rem;
+  line-height: 1.2;
+}
+
+.project-title {
+  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+  text-wrap: balance;
+  white-space: nowrap;
+}
+
+.project-subtitle {
+  text-align: left;
+  text-wrap: balance;
+}
+
+.project-line {
+  flex: 1 1 0;
+  height: 2px;
+  background: var(--black);
+  min-width: 20px;
+  opacity: 0.5;
+  margin: 0px 0.5rem 2px;
+}
+
+.project-action-text {
+  font-size: 1rem;
+  font-weight: 700 !important;
+  white-space: nowrap;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.project-item:hover .project-action-text{
+  color: var(--light-orange);
+  text-shadow: 
+    2px 2px 4px rgba(249, 211, 180, 0.8),  /* orange-ish shadow below */
+    -2px -2px 4px rgba(255, 250, 245, 0.9); /* beige highlight above */
+  transform: translateY(1.5px) scale(0.98);
+}

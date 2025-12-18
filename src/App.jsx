@@ -2,59 +2,83 @@ import React, { useState } from "react";
 import "./App.css";
 import Header from "./components/Header.jsx";
 import Hero from "./components/Hero.jsx";
+import About from "./components/About.jsx";
+import Projects from "./components/Projects.jsx";
+import Contact from "./components/Contact.jsx";
+import Footer from "./components/Footer.jsx";
 import { DialogueBox } from "./components/DialogueBox.jsx";
 import "./CSS/dialogue.css";
 
-const INTRO_DIALOGUE = [
-  "Welcome, Trainer.",
-  "This is my creative space.",
-  "What would you like to explore?",
-];
-
 function App() {
-  const [showChoices, setShowChoices] = useState(false);
-  const [activeModal, setActiveModal] = useState(null);
+  const [activeSection, setActiveSection] = useState(null);
+  const [hasIntroPlayed, setHasIntroPlayed] = useState(false);
+  const [resetKey, setResetKey] = useState(0); // Add this
+
+  const INTRO_DIALOGUE = [
+    "Hello there! My name is Willie.",
+    "I'm a web developer with a passion for creating interactive and engaging web experiences.",
+    "So tell me… what would you like to explore?"
+  ];
+
+  const RETURN_DIALOGUE = [
+    "What else would you like to explore?"
+  ];
+
+  const handleReset = () => {
+    setActiveSection(null);
+    setHasIntroPlayed(false);
+    setResetKey(prev => prev + 1); // Increment to force remount
+    window.scrollTo(0, 0);
+  };
+
+  const handleSectionComplete = () => {
+    setActiveSection(null);
+  };
+
+  const handleDialogueComplete = () => {
+    // Don't do anything here - we'll set hasIntroPlayed when they make a choice
+  };
+
+  const handleChoiceSelect = (choice) => {
+    // Mark intro as played on first choice selection
+    if (!hasIntroPlayed) {
+      setHasIntroPlayed(true);
+    }
+
+    if (choice === "About Me") {
+      setActiveSection("about");
+    } else if (choice === "Projects") {
+      setActiveSection("projects");
+    } else if (choice === "Contact") {
+      setActiveSection("contact");
+    }
+  };
 
   return (
     <div className="page">
-      <Header />
+      <Header onReset={handleReset} />
 
       <div className="hero-main-wrapper">
         <Hero />
 
         <div className="game-container">
-          {!showChoices && (
+          {!activeSection && (
             <DialogueBox
-              dialogue={INTRO_DIALOGUE}
-              onComplete={() => setShowChoices(true)}
+              key={resetKey} // Add this key
+              dialogue={hasIntroPlayed ? RETURN_DIALOGUE : INTRO_DIALOGUE}
+              onComplete={handleDialogueComplete}
+              choices={["About Me", "Projects", "Contact"]}
+              onChoiceSelect={handleChoiceSelect}
             />
           )}
 
-          {showChoices && (
-            <div className="choices">
-              {["About Me", "Projects", "Contact"].map((choice) => (
-                <button
-                  key={choice}
-                  className="choice-btn"
-                  onClick={() => setActiveModal(choice)}
-                >
-                  {choice}
-                </button>
-              ))}
-            </div>
-          )}
+          {activeSection === "about" && <About onComplete={handleSectionComplete} />}
+          {activeSection === "projects" && <Projects onComplete={handleSectionComplete} />}
+          {activeSection === "contact" && <Contact onComplete={handleSectionComplete} />}
         </div>
       </div>
 
-      {activeModal && (
-        <div className="modal-overlay" onClick={() => setActiveModal(null)}>
-          <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <h2>{activeModal}</h2>
-            <p>Content for {activeModal} goes here.</p>
-            <button onClick={() => setActiveModal(null)}>Close</button>
-          </div>
-        </div>
-      )}
+      <Footer />
     </div>
   );
 }
