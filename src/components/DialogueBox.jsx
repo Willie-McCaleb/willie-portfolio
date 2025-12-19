@@ -59,7 +59,7 @@ export function DialogueBox({ dialogue, onComplete, choices, onChoiceSelect, cus
         // Let the user click to advance (handled in the advance function)
       }
     }
-  }, 30);
+  }, 50);
 };
 
   const advance = () => {

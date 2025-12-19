@@ -16,7 +16,7 @@ body,
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: 2rem 0;
+  padding: 1rem 0;
 }
 
 /* .page section:not(section:last-child) {
@@ -58,24 +58,46 @@ body,
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.3rem;
+  gap: 0.5rem;
   font-weight: 500;
 }
 
+/* Status Dot with Pulse Animation  */
 .status-dot {
-  width: 12px;
-  height: 12px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background-color: #30cd41; /* green */
-  animation: shrinkToNormal 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  background-color: #30cd41;
+  position: relative;
 }
 
-@keyframes shrinkToNormal {
-  0%, 100% {
-    transform: scale(1);
+.status-dot::before,
+.status-dot::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  background: inherit;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulse 2s infinite linear;
+  opacity: 0.3;
+}
+
+.status-dot::after {
+  animation-delay: 1s;
+}
+
+@keyframes pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.6;
   }
-  50% {
-    transform: scale(.9);
+  100% {
+    transform: translate(-50%, -50%) scale(2.5);
+    opacity: 0;
   }
 }
 
@@ -92,9 +114,8 @@ body,
 
 .nav__icons svg:hover {
   color: var(--light-orange);
-  text-shadow: 
-    2px 2px 4px rgba(249, 211, 180, 0.8),  /* orange-ish shadow below */
-    -2px -2px 4px rgba(255, 250, 245, 0.9); /* beige highlight above */
+  text-shadow: 2px 2px 4px rgba(249, 211, 180, 0.8),
+    /* orange-ish shadow below */ -2px -2px 4px rgba(255, 250, 245, 0.9); /* beige highlight above */
   transform: translateY(1.5px) scale(0.98);
 }
 
@@ -219,7 +240,7 @@ footer {
   justify-content: space-between;
   align-items: center;
   margin-top: auto;
-  padding-top: 4rem;
+  padding-top: 3rem;
 }
 
 .footer__icons {
@@ -235,4 +256,3 @@ footer {
 .footer__copy {
   font-weight: 500;
 }
-

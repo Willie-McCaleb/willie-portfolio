@@ -1,7 +1,7 @@
 .dialogue-container {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 32px;
 }
 
 .dialogue-box {
@@ -10,11 +10,13 @@
   border: 3px solid #333; */
   border-radius: 8px;
   padding: 16px;
-  /* min-height: 100px; */
+  min-height: 100px;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 1rem;
+  border: 2px solid var(--black);
 }
 
 .dialogue-text {
@@ -26,8 +28,9 @@
 
 .dialogue-caret {
   align-self: flex-end;
-  font-size: 16px;
+  font-size: 13px;
   animation: blink 0.8s infinite;
+  transform: rotate(90deg);
 }
 
 .dialogue-caret.invisible {
@@ -35,8 +38,14 @@
 }
 
 @keyframes blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
 }
 
 .choices {
