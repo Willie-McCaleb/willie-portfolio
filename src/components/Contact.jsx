@@ -26,7 +26,17 @@ const SUCCESS_DIALOGUE = [
   "Thank you for reaching out, I'll get back to you as soon as possible!"
 ];
 
-function Contact({ onComplete }) {
+const getSuccessDialogue = (userName) => {
+  if (userName) {
+    return [
+      "Message sent successfully! 🎉",
+      `Thank you for reaching out, ${userName}! I'll get back to you as soon as possible!`
+    ];
+  }
+  return SUCCESS_DIALOGUE;
+};
+
+function Contact({ onComplete, userName }) {
   const [stage, setStage] = useState("initial");
   const [selectedChoice, setSelectedChoice] = useState(null);
   const [formData, setFormData] = useState({
@@ -151,7 +161,7 @@ function Contact({ onComplete }) {
           onClick={handleBack}
           disabled={isSubmitting}
         >
-          <span className="btn-face">Back</span>
+          <span className="btn-face">Return</span>
         </button>
       </div>
 
@@ -374,7 +384,7 @@ function Contact({ onComplete }) {
   if (stage === "success") {
     return (
       <DialogueBox
-        dialogue={SUCCESS_DIALOGUE}
+        dialogue={getSuccessDialogue(userName)}
         onComplete={handleSuccessComplete}
         choices={[]}
       />
