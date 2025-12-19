@@ -16,7 +16,7 @@
   transform: translateX(-50%);
   top: 0;
   width: 100%;
-  height: 11.5rem;
+  height: clamp(11.5rem, 50vw + 74px, 26rem);
   pointer-events: none;
   display: flex;
   align-items: center;
