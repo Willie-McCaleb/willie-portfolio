@@ -10,6 +10,7 @@ export function DialogueBox({ dialogue, onComplete, choices, onChoiceSelect, cus
   const [isTyping, setIsTyping] = useState(false);
   const [showChoices, setShowChoices] = useState(false);
   const [showCustomContent, setShowCustomContent] = useState(false);
+  const [isFadingOut, setIsFadingOut] = useState(false);
 
   const intervalRef = useRef(null);
 
@@ -20,6 +21,7 @@ export function DialogueBox({ dialogue, onComplete, choices, onChoiceSelect, cus
     setIsTyping(false);
     setShowChoices(false);
     setShowCustomContent(false);
+    setIsFadingOut(false);
   }, [dialogue]);
 
   // Start typing current line
@@ -116,7 +118,7 @@ export function DialogueBox({ dialogue, onComplete, choices, onChoiceSelect, cus
       </div>
 
       {showChoices && (
-        <div className="choices">
+        <div className={`choices ${isFadingOut ? 'fade-out' : ''}`}>
           {choices.map((choice, index) => {
             // Handle both string choices and object choices
             const isObjectChoice = typeof choice === "object" && choice.text;
@@ -141,7 +143,9 @@ export function DialogueBox({ dialogue, onComplete, choices, onChoiceSelect, cus
         </div>
       )}
 
-      {showCustomContent && customContent}
+      {showCustomContent && customContent && React.cloneElement(customContent, {
+        className: `${customContent.props.className || ''} ${isFadingOut ? 'fade-out' : ''}`.trim()
+      })}
     </div>
   );
 }
